@@ -79,7 +79,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "contact_importer.users",
-    # Your stuff: custom apps go here
+    "contact_importer.contacts.apps.ContactsConfig"
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
