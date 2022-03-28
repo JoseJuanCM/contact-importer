@@ -39,8 +39,8 @@ class FileImport(TimeStampedModel):
 class FileImportErrors(TimeStampedModel):
     id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
     file = models.ForeignKey(FileImport, on_delete=models.CASCADE, related_name="file_error")
-    record = models.CharField(max_length=250)
-    error = models.CharField(max_length=250)
+    record = models.TextField()
+    error = models.JSONField()
 
     class Meta:
         verbose_name = "File Import Error"
@@ -57,9 +57,10 @@ class Contact(TimeStampedModel):
     birth_date = models.DateField()
     phone = models.CharField(max_length=25)
     address = models.CharField(max_length=250)
-    card = models.CharField(max_length=20)
-    franchise = models.CharField(max_length=25)
+    card = models.CharField(max_length=255)
+    franchise = models.CharField(max_length=50)
     email = models.EmailField()
+    last4 = models.CharField(max_length=4)
 
     class Meta:
         verbose_name = "Contact"
