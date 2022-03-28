@@ -1,9 +1,6 @@
-import csv
-
 from rest_framework import serializers
 
-from config.settings.base import MEDIA_URL, MEDIA_ROOT
-from contact_importer.contacts.models import FileImport
+from contact_importer.contacts.models import FileImport, Contact, FileImportErrors
 
 
 class FileImportSerializer(serializers.ModelSerializer):
@@ -19,3 +16,15 @@ class FileImportReadOnlySerializer(serializers.ModelSerializer):
         model = FileImport
         fields = ["id", "user", "file", "headers_configuration", "status"]
         read_only_fields = fields
+
+
+class ContactSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contact
+        fields = ["id", "user", "name", "birth_date", "phone", "address", "franchise", "email", "last4"]
+
+
+class FileImportErrorsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FileImportErrors
+        fields = ["id", "file", "record", "error"]
