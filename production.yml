@@ -6,7 +6,7 @@ volumes:
   production_traefik: {}
 
 services:
-  django:
+  django: &django
     build:
       context: .
       dockerfile: ./compose/production/django/Dockerfile
@@ -43,9 +43,25 @@ services:
     ports:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
+      - "0.0.0.0:5555:5555"
 
   redis:
     image: redis:6
+
+  celeryworker:
+    <<: *django
+    image: contact_importer_production_celeryworker
+    command: /start-celeryworker
+
+  celerybeat:
+    <<: *django
+    image: contact_importer_production_celerybeat
+    command: /start-celerybeat
+
+  flower:
+    <<: *django
+    image: contact_importer_production_flower
+    command: /start-flower
 
   awscli:
     build:
